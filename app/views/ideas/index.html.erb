@@ -1,0 +1,23 @@
+<a href="/sessions" data-method="delete">Log Out</a>
+<h3>Hi, <%= @user.alias %>!</h3>
+<form action="/ideas" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<textarea name="content" placeholder="Post idea here"></textarea>
+	<input type="submit" value="Idea!">
+</form>
+<% if flash[:ideaerror] %>
+	<% flash[:ideaerror].each do |err| %>
+		<p><%= err %></p>
+	<% end %>
+<% end %>
+<% if @ideas %>
+	<% @ideas.each do |i| %>
+		<p><a href="/users/<%= i.user.id %>"><%= i.user.alias %></a> says:</p>
+		<p><%= i.content %> </p>
+		<a href="/likes/<%= i.id %>" data-method="post">Like</a> <a href="/ideas/<%= i.id %>"><%= i.likers %> people like this.</a>
+		<% if i.user.id == session[:user_id] %>
+			<a href="/ideas/<%= i.id %>" data-method="delete">Delete</a>
+		<% end %>
+		<hr>
+	<% end %>
+<% end %>

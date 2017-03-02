@@ -1,0 +1,25 @@
+<a href="/ideas">Bright Ideas</a>
+<a href="/sessions" data-method="delete">Log Out</a>
+<% @idea.each do |i| %>
+	<p><a href="/users/<%= i.id %>"><%= i.alias %></a> says:</p>
+	<p><%= i.content %></p>
+	<hr>
+<% end %>
+<p>People who like this post:</p>
+<table>
+	<thead>
+		<tr>
+			<th>Alias</th>
+			<th>Name</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @likers.each do |l| %>
+			<tr>
+				<td><a href="/users/<%= l.id %>"><%= l.alias %></a></td>
+				<td><%= l.name %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+	
